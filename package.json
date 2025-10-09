@@ -1,0 +1,19 @@
+{
+  "name": "playwright-automation-framework",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "cucumberWithTS": "npx cucumber-js src/features/*.feature --require-module ts-node/register --require src/step-definitions/**/**/*.ts --require src/Utils/*.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@cucumber/cucumber": "^12.2.0",
+    "@faker-js/faker": "^10.0.0",
+    "@playwright/test": "^1.56.0",
+    "@types/node": "^24.7.0",
+    "ts-node": "^10.9.2"
+  }
+}
