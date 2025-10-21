@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "cucumberWithTS": "npx cucumber-js src/features/*.feature --require-module ts-node/register --require src/step-definitions/**/**/*.ts --require src/Utils/*.ts"
+    "cucumberWithTS": "npx cucumber-js src/features/*.feature --require-module ts-node/register --require src/step-definitions/**/**/*.ts --require src/Utils/*.ts",
+    "cucumber": "npx cucumber-js && ts-node ./src/index.ts"
   },
   "keywords": [],
   "author": "",

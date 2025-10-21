@@ -2,6 +2,7 @@ import { Given, When, Then } from '@cucumber/cucumber';
 import { pageFixture } from './hooks/BrowserContextFixture';
 import { expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
+import { text } from 'stream/consumers';
 
 When('I enter a first name', async () => {
     //await page.pause();
@@ -84,4 +85,40 @@ When('I enter a random last name', async () => {
 When('I enter a random email address', async () => {
     const randomEmail = faker.internet.email();
     await pageFixture.page.getByRole('textbox', { name: 'Email Address' }).fill(randomEmail);
+});
+
+
+When('I enter a first name {word} and a last name {word}', async (firstName: string, lastName: string) => {
+    await pageFixture.page.getByRole('textbox', { name: 'First Name' }).fill(firstName);
+    await pageFixture.page.getByRole('textbox', { name: 'Last Name' }).fill(lastName);
+});
+
+
+When('I enter a email address {string} and a comment {string}', async (email: string, comments: string) => {
+    await pageFixture.page.getByRole('textbox', { name: 'Email Address' }).fill(email);
+    await pageFixture.page.getByRole('textbox', { name: 'Comments' }).fill(comments);
+});
+
+
+//dynamic selector
+Then('I should see a thank you message {string}', async (message: string) => {
+    //wait for target element to be visible
+    await pageFixture.page.waitForSelector("//h1 | //body", {state: 'visible'});
+
+    //get all elements
+    const elements = await pageFixture.page.locator("//h1 | //body").elementHandles();
+    let foundElementText    = '';
+
+    //loop through each of the elements
+    for(let element of elements){
+        let text = await element.innerText();
+
+        if(text.includes(message)){
+            foundElementText = text;
+            break;
+        }
+    }
+    //assertion
+    expect(foundElementText).toContain(message);
+
 });
